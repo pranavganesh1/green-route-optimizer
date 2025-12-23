@@ -96,25 +96,99 @@ Frontend will be available at `http://localhost:3000`
 
 ## 📁 Project Structure
 green-route-optimizer/
-├── frontend/
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/          # Page components
-│   │   ├── services/       # API services
-│   │   └── utils/          # Helper functions
-│   └── package.json
-├── backend/
+│
+├── README.md                     # Project overview (already created)
+├── .gitignore
+├── .env.example                  # Environment variables template
+│
+├── docs/                         # Documentation (shared understanding)
+│   ├── API.md                    # Backend API contracts
+│   ├── ARCHITECTURE.md           # System design & flow
+│   ├── DEMO.md                   # Demo steps (what to show)
+│   └── DEVELOPMENT.md            # Dev guidelines for both members
+│
+├── backend/                      # 👨‍💻 BACKEND (YOU)
 │   ├── app/
-│   │   ├── routes/         # API endpoints
-│   │   ├── models/         # Data models
-│   │   ├── services/       # Business logic
-│   │   └── utils/          # Helper functions
-│   ├── tests/              # Unit tests
-│   └── requirements.txt
-├── docs/
-│   ├── API.md              # API documentation
-│   └── DEVELOPMENT.md      # Development guide
-└── README.md
+│   │   ├── main.py               # FastAPI entry point
+│   │   │
+│   │   ├── core/                 # App-level configs
+│   │   │   ├── config.py         # Constants, city name, thresholds
+│   │   │   └── logger.py
+│   │   │
+│   │   ├── routes/               # API endpoints
+│   │   │   ├── __init__.py
+│   │   │   └── route_optimizer.py  # POST /route/optimize
+│   │   │
+│   │   ├── models/               # Request & response schemas
+│   │   │   ├── __init__.py
+│   │   │   ├── request.py        # Input payload
+│   │   │   ├── response.py       # Output payload
+│   │   │   └── vehicle.py        # Vehicle models
+│   │   │
+│   │   ├── services/             # ⭐ CORE LOGIC (MOST IMPORTANT)
+│   │   │   ├── __init__.py
+│   │   │   ├── graph_service.py      # Load OSM graph
+│   │   │   ├── routing_service.py    # Dijkstra + A*
+│   │   │   ├── cost_service.py       # Fuel / EV energy calc
+│   │   │   ├── station_service.py    # Fuel & charging stations
+│   │   │   ├── carbon_service.py     # CO₂ calculations
+│   │   │   └── alert_service.py      # Alert trigger logic
+│   │   │
+│   │   ├── utils/                # Helper functions
+│   │   │   ├── __init__.py
+│   │   │   ├── geo.py             # Distance, polyline helpers
+│   │   │   └── elevation.py       # Elevation helpers
+│   │   │
+│   │   └── constants/             # Fixed values (shared logic)
+│   │       ├── __init__.py
+│   │       ├── vehicles.py        # Mileage, energy rates
+│   │       └── emissions.py       # CO₂ factors
+│   │
+│   ├── tests/
+│   │   └── test_routes.py
+│   │
+│   ├── requirements.txt
+│   └── README.md
+│
+├── frontend/                     # 👨‍🎨 FRONTEND (YOUR FRIEND)
+│   ├── public/
+│   │   └── index.html
+│   │
+│   ├── src/
+│   │   ├── app/                  # App-level setup
+│   │   │   ├── App.jsx
+│   │   │   └── router.jsx
+│   │   │
+│   │   ├── pages/                # Screens (mobile-first)
+│   │   │   ├── Home.jsx          # Input screen
+│   │   │   └── Result.jsx        # Map + dashboard
+│   │   │
+│   │   ├── components/           # Reusable UI blocks
+│   │   │   ├── MapView.jsx       # Leaflet map
+│   │   │   ├── RouteLayer.jsx    # Fastest vs Green routes
+│   │   │   ├── StationLayer.jsx  # Fuel / charging icons
+│   │   │   ├── Dashboard.jsx     # Metrics panel
+│   │   │   └── VoiceAlert.jsx    # Voice alert handler
+│   │   │
+│   │   ├── services/             # API calls (matches backend)
+│   │   │   └── routeService.js   # Calls /route/optimize
+│   │   │
+│   │   ├── utils/                # Frontend helpers
+│   │   │   ├── constants.js      # Same logic as backend
+│   │   │   └── formatters.js
+│   │   │
+│   │   ├── styles/
+│   │   │   └── tailwind.css
+│   │   │
+│   │   └── main.jsx
+│   │
+│   ├── package.json
+│   └── README.md
+│
+└── mobile/ (OPTIONAL)
+    ├── README.md                 # PWA / mobile notes
+    └── manifest.json             # Add-to-home-screen support
+
 
 ## 🗓️ Development Roadmap (14 Days)
 
